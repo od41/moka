@@ -1,18 +1,8 @@
 # Minsta
 
-This repository hosts the primary codebase for the [Minsta App](https://minsta.me), originally created and developed by [@microchipgnu](https://github.com/microchipgnu). 
+This repository hosts the primary codebase for the [Moka](https://moka.vercel.app). A publishing and reading app for digital novels, poems, short-stories, comics and books of all types.
 
-All new Minsta instances should be derived from this repository.
-
-## Demo
-
-Check out the live demo here: [minsta demo](https://minsta-app.vercel.app/).
-
-## One-Click Deploy
-
-Deploy this project using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FMintbase%2Fminsta)
+Project code originated from [Minsta](https://minsta-app.vercel.app).
 
 ## Getting Started
 
