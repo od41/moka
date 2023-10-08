@@ -10,7 +10,7 @@ const useFeed = (props: any) => {
   const queryObj = {
     queryName: "q_FETCH_FEED",
     query: FETCH_FEED,
-    variables: { accountId, contractAddress, limit: 11, offset: 1 },
+    variables: { accountId, contractAddress, limit: 11, offset: 49 },
     queryOpts: { staleTime: Infinity },
   };
 

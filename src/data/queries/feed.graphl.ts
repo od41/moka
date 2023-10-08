@@ -24,6 +24,10 @@ export const FETCH_FEED = `
       title
       description
       metadata_id
+      attributes {
+        attribute_display_type
+        attribute_value
+      } 
     }
     mb_views_nft_tokens_aggregate(where: {minter: {_eq: $accountId}, nft_contract_id: {_eq: $contractAddress}, burned_timestamp: {_is_null: true}}) {
       aggregate {
@@ -43,6 +47,10 @@ query minsta_fetch_firstToken($accountId: String!, $contractAddress: String) {
     title
     description
     metadata_id
+    attributes {
+      attribute_display_type
+      attribute_value
+    } 
   }
 }
 `
