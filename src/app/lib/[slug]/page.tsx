@@ -9,7 +9,7 @@ export default function BookDetails({ params }: { params: { slug: string } }) {
 
   // get book data
   const args = {
-    accountId: "dafeengineer.testnet", 
+    accountId: "dafeengineer.testnet", // @TODO: replace with whatever account is signed in
     metadataId: params.slug
   }
 
@@ -20,7 +20,7 @@ export default function BookDetails({ params }: { params: { slug: string } }) {
   const {data, isLoading} = useGetBook(args)
 
   if(isLoading) {
-    return <>Loading</>
+    return <>Loading</> // @TODO: replace with nicer looking loading screen OR use the Next13 loading API?
   }
 
   const bookData = data.data.book[0]
