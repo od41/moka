@@ -31,18 +31,21 @@ const Header = () => {
             >
               Store
             </Link>
-            <Link
-              className={`link ${pathname === '/lib' ? 'active font-semibold' : ''}`}
-              href="/lib"
-            >
-              My Books
-            </Link>
-            <Link
-              className={`link ${pathname === '/publish' ? 'active font-semibold' : ''}`}
-              href="/publish"
-            >
-              Publish
-            </Link>
+            {isConnected && <>
+              <Link
+                className={`link ${pathname === '/lib' ? 'active font-semibold' : ''}`}
+                href="/lib"
+              >
+                My Books
+              </Link>
+              <Link
+                className={`link ${pathname === '/publish' ? 'active font-semibold' : ''}`}
+                href="/publish"
+              >
+                Publish
+              </Link>
+            </>
+            }
             <button className="border px-2 py-1 rounded-full" onClick={() => openModal("default")}>
               {isConnected ? "Connected" : "Connect Wallet"}
             </button>

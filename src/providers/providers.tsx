@@ -5,7 +5,8 @@ import { WalletContextProvider } from "@mintbase-js/react";
 
 import { setupAuthWallet } from "@mintbase-js/wallet";
 import { setupNearWallet } from "@near-wallet-selector/near-wallet";
-import '@near-wallet-selector/modal-ui/styles.css';
+import { setupMyNearWallet } from "@near-wallet-selector/my-near-wallet";
+// import '@near-wallet-selector/modal-ui/styles.css';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   
@@ -15,6 +16,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
       network={constants.network as any}
       additionalWallets={[
         setupNearWallet(),
+        setupMyNearWallet(),
         //@ts-ignore
         setupAuthWallet({
           networkId: constants.network as "testnet" | "mainnet",

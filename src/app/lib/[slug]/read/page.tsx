@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useGetBook } from "@/hooks/useGetBook";
-import { EpubReader } from "@/components/epub-reader";
+import { EpubReader } from "@/components/pages/epub-reader";
 
 
 export default function BookReader({ params }: { params: { slug: string } }) {

@@ -18,7 +18,7 @@ query MyQuery {
 
 */
 
-const FetchBookQuery = `
+const FetchBookQueryWithAccount = `
   query FetchBook($accountId: String, $contractAddress: String, $metadataId: String) @cached {
     book: mb_views_nft_tokens(
       where: { owner: {_eq: $accountId},  nft_contract_id: { _eq: $contractAddress }, metadata_id: {_eq: $metadataId} }
@@ -37,30 +37,56 @@ const FetchBookQuery = `
   }
 `;
 
+const FetchBookQueryNoAccount = `
+  query FetchBookNoAccount($contractAddress: String, $metadataId: String) @cached {
+    book: mb_views_nft_tokens(
+      where: { nft_contract_id: { _eq: $contractAddress }, metadata_id: {_eq: $metadataId} }
+      limit: 1
+    ) {
+        id: token_id
+        media
+        title
+        description
+        metadata_id
+        attributes {
+            attribute_display_type
+            attribute_value
+        } 
+    }
+  }
+`;
+
 export const useGetBook = (props: any) => {
-    const { accountId, metadataId } = props;
-    const fullMetadataId = constants.tokenContractAddress + ":" + metadataId
-    const queryObj = {
-        queryName: "q_FetchBook",
-        query: FetchBookQuery,
-        variables: { accountId: accountId, contractAddress: constants.tokenContractAddress, metadataId:  fullMetadataId },
-        queryOpts: { staleTime: Infinity },
-      };
+  const { accountId, metadataId } = props;
+  const fullMetadataId = constants.tokenContractAddress + ":" + metadataId
 
-    const {
-        data,
-        isLoading,
-        isFetching,
-        refetch: refetchNfts,
-      } = useGraphQlQuery(queryObj);
-      
-    let bookData: any = []
-    
-    // if(data && !isLoading) {
-    //     bookData = data.book[0]
-    // }
+  const queryObjWithAccount = {
+    queryName: "q_FetchBook",
+    query: FetchBookQueryWithAccount,
+    variables: { accountId: accountId, contractAddress: constants.tokenContractAddress, metadataId: fullMetadataId },
+    queryOpts: { staleTime: Infinity },
+  };
 
-    return {data, isLoading}
+  const queryObjNoAccount = {
+    queryName: "q_FetchBookNoAccount",
+    query: FetchBookQueryNoAccount,
+    variables: {contractAddress: constants.tokenContractAddress, metadataId: fullMetadataId },
+    queryOpts: { staleTime: Infinity },
+  };
+
+  const {
+    data,
+    isLoading,
+    isFetching,
+    refetch: refetchNfts,
+  } = useGraphQlQuery(accountId == "" ? queryObjNoAccount : queryObjWithAccount);
+
+  let bookData: any = []
+
+  // if(data && !isLoading) {
+  //     bookData = data.book[0]
+  // }
+
+  return { data, isLoading }
 }
 
- 

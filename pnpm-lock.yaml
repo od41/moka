@@ -26,6 +26,9 @@ dependencies:
   '@near-wallet-selector/modal-ui':
     specifier: ^8.2.1
     version: 8.2.1(near-api-js@2.1.4)
+  '@near-wallet-selector/my-near-wallet':
+    specifier: ^8.5.3
+    version: 8.5.3(near-api-js@2.1.4)
   '@near-wallet-selector/near-wallet':
     specifier: ^8.5.3
     version: 8.5.3(near-api-js@2.1.4)
@@ -641,7 +644,7 @@ packages:
       '@near-wallet-selector/ledger': 8.5.2(near-api-js@2.1.4)(typescript@5.1.6)
       '@near-wallet-selector/meteor-wallet': 8.5.2(near-api-js@2.1.4)
       '@near-wallet-selector/modal-ui': 8.2.1(near-api-js@2.1.4)
-      '@near-wallet-selector/my-near-wallet': 8.5.2(near-api-js@2.1.4)
+      '@near-wallet-selector/my-near-wallet': 8.5.3(near-api-js@2.1.4)
       '@near-wallet-selector/near-wallet': 8.5.3(near-api-js@2.1.4)
       '@near-wallet-selector/sender': 8.5.2(near-api-js@2.1.4)
       '@near-wallet-selector/wallet-connect': 8.5.2(near-api-js@2.1.4)(react@18.2.0)
@@ -1002,16 +1005,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
       - near-api-js
-    dev: false
-
-  /@near-wallet-selector/my-near-wallet@8.5.2(near-api-js@2.1.4):
-    resolution: {integrity: sha512-xOD2HGq8Jo9Poxz1nSACoGyS/xVvtWYa0+CkDJeec4/LSgORgG1KFxF98uhTVFoAUSLnuukLjU8eH/ybGWpElw==}
-    peerDependencies:
-      near-api-js: ^1.0.0 || ^2.0.0
-    dependencies:
-      '@near-wallet-selector/core': 8.5.2(near-api-js@2.1.4)
-      '@near-wallet-selector/wallet-utils': 8.5.2(near-api-js@2.1.4)
-      near-api-js: 2.1.4
     dev: false
 
   /@near-wallet-selector/my-near-wallet@8.5.3(near-api-js@2.1.4):
