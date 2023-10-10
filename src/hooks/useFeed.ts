@@ -69,22 +69,20 @@ const useFeed = (props: any) => {
 
     const tokenData = data?.data?.tokens;
     const metadata = data?.data?.metadata;
-    const totalCount = data?.data?.total_listed?.data?.count
+    const totalCount = data?.data?.total_listed?.data?.count;
 
-    console.log(tokenData)
-    console.log(metadata)
-    console.log(totalCount)
-  
-    for (const obj1 of tokenData) {
-      const matchingObj2 = metadata.find((obj2: any) => obj2.metadata_id === obj1.metadata_id);
-  
-      if (matchingObj2) {
-        // Merge properties from obj2 into obj1
-        const mergedObj = {
-          ...obj1,
-          ...matchingObj2
-        };
-        mergedArray.push(mergedObj);
+    if (tokenData && metadata && totalCount){
+      for (const obj1 of tokenData) {
+        const matchingObj2 = metadata.find((obj2: any) => obj2.metadata_id === obj1.metadata_id);
+    
+        if (matchingObj2) {
+          // Merge properties from obj2 into obj1
+          const mergedObj = {
+            ...obj1,
+            ...matchingObj2
+          };
+          mergedArray.push(mergedObj);
+        }
       }
     }
   

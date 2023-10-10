@@ -1,19 +1,40 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { constants } from "@/constants";
 
 import Image from "next/image";
 import Link from "next/link";
 import { removeItemsBeforeColon } from "@/utils/removeItemsBeforeColon";
 
-const BookThumb = ({ token, index }: any) => {
+import { parseYoctoToNear } from "@/lib/numbers";
+import { useNearPrice } from "@mintbase-js/react";
+
+interface BookThumbProps {
+  token: any;
+  index: number;
+  isOwned?: boolean;
+}
+
+const BookThumb = ({ token, index, isOwned=false }: BookThumbProps) => {
   const imageUrl = token?.media;
   const {title, description, createdAt, attributes} = token
   const author = attributes[0].attribute_value
   const datePublished = new Date(createdAt)
   const printAbleDate = new Intl.DateTimeFormat("en-US", {month: "short", year: "numeric"}).format(datePublished)
   const [error, setError] = useState(false);
+  const [isLoadingPrice, setIsLoadingPrice] = useState(true)
+  const [bookPriceInUsd, setBookPriceInUsd] = useState("0")
+
+  const {nearPrice, error: nearPriceError} = useNearPrice()
+
+  useEffect(() => {
+    if(nearPrice){
+      const _bookPriceInUsd = parseYoctoToNear(token?.price) * nearPrice;
+      setBookPriceInUsd(_bookPriceInUsd.toFixed(2))
+      setIsLoadingPrice(false)
+    }
+  }, [nearPrice])
 
   const handleError = () => {
     setError(true);
@@ -52,18 +73,12 @@ const BookThumb = ({ token, index }: any) => {
             onError={handleError}
             placeholder="empty"
           />
-          <button
-            className="absolute top-3 right-3 bg-black text-white rounded p-1 text-xs px-2 py-1.5"
-            onClick={(e) => {
-              e.preventDefault();
-              window.open(
-                `https://twitter.com/intent/tweet?url=%0aCheck%20out%20mine%3A%20${constants.mintbaseBaseUrl}/meta/${token?.metadata_id}%2F&via=mintbase&text=${constants.twitterText}`,
-                "_blank"
-              );
-            }}
+
+          {true && <span
+            className="absolute top-3 right-3 bg-black text-white rounded p-1 text-md px-2 py-1.5"
           >
-            Share
-          </button>
+            ${bookPriceInUsd} in NEAR
+          </span>}
           <div>
             <h3 className="">{title}</h3>
             <p className="truncate">{description}</p>

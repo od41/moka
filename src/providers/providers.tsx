@@ -4,6 +4,8 @@ import { AppProvider } from "./app";
 import { WalletContextProvider } from "@mintbase-js/react";
 
 import { setupAuthWallet } from "@mintbase-js/wallet";
+import { setupNearWallet } from "@near-wallet-selector/near-wallet";
+import '@near-wallet-selector/modal-ui/styles.css';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   
@@ -12,13 +14,14 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
       contractAddress={constants.tokenContractAddress}
       network={constants.network as any}
       additionalWallets={[
+        setupNearWallet(),
         //@ts-ignore
         setupAuthWallet({
           networkId: constants.network as "testnet" | "mainnet",
           relayerUrl: "/api/relay",
           signInContractId: constants.tokenContractAddress,
           walletUrl: constants.mintbaseWalletUrl,
-        }),
+        })
       ]}
     >
       <AppProvider>

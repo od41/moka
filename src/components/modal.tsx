@@ -8,7 +8,7 @@ import InlineSVG from "react-inlinesvg";
 
 const Modal = ({ children }: { children?: React.ReactNode }) => {
   const { isMainModalOpen, closeModal } = useApp();
-  const { connect, isConnected } = useWallet();
+  const { connect, disconnect, isConnected, activeAccountId } = useWallet();
 
   const texts = {
     about: {
@@ -48,41 +48,26 @@ const Modal = ({ children }: { children?: React.ReactNode }) => {
             <h1 className="text-3xl font-bold">{process.env.NEXT_PUBLIC_APP_TITLE || "Minsta"}</h1>
           </div>
 
-          <div className="text-modalText flex flex-col gap-8 items-start mb-12">
-            <div className="flex gap-3 items-center">
-              <InlineSVG
-                src="/images/photo_camera-2.svg"
-                className="fill-current text-icon"
-              />
-              <p className="text-sm">{texts.about.first}</p>
-            </div>
-            <div className="flex gap-3 items-center">
-              <InlineSVG
-                src="/images/file_arrow_up.svg"
-                className="fill-current text-icon"
-              />
-              <p className="text-sm">{texts.about.sec}</p>
-            </div>
-            <div className="flex gap-3 items-center ml-1">
-              <InlineSVG
-                src="/images/trophy.svg"
-                className="fill-current text-icon"
-              />
-              <p className="text-sm">{texts.about.third}</p>
-            </div>
-          </div>
-
           <div
-            className={`mb-14 text-center justify-center ${
-              isConnected ? "flex gap-8 mt-8" : ""
-            }`}
+            className={`mb-14 text-center justify-center ${isConnected ? "flex gap-8 mt-8" : ""
+              }`}
           >
-            <button
-              className="gradientButton text-primaryBtnText rounded px-14 py-3 text-sm font-light"
-              onClick={!isConnected ? () => connect() : () => closeModal()}
+
+            {isConnected ? <div>
+              <span className="text-sm">You're connected</span>
+              <button 
+              className="border mt-4 px-14 py-3 text-sm font-light rounded-md " 
+              onClick={() => disconnect()}
             >
-              OK
+              Disconnect <span className="font-semibold">{activeAccountId}</span>
             </button>
+            </div> : <button
+              className="gradientButton text-primaryBtnText rounded px-14 py-3 text-sm font-light"
+              onClick={() => connect()}
+            >
+              Connect
+            </button>
+            }
           </div>
 
           <div>
@@ -98,10 +83,6 @@ const Modal = ({ children }: { children?: React.ReactNode }) => {
               />
             </div>
           </div>
-        </div>
-
-        <div className="w-full text-freeUseText bg-bgFreeUse text-center py-2 text-sm px-5 rounded-b-lg">
-          100% free to use: no credit card or crypto required!
         </div>
       </div>
     </div>
