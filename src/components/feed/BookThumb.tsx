@@ -57,7 +57,10 @@ const BookThumb = ({ token, index, isOwned=false }: BookThumbProps) => {
       <div className=" aspect-square  sm:w-full md:w-72 h-72 xl:w-80 xl:h-80 relative">
         <Link
           key={`${token?.metadata_id}-${index}`}
-          href={`/lib/${removeItemsBeforeColon(token?.metadata_id)}`}
+          href={
+            isOwned ? `/library/${removeItemsBeforeColon(token?.metadata_id)}`
+            : `/store/${removeItemsBeforeColon(token?.metadata_id)}`
+          } // @TODO: If the book is owned, redirect to library, by default, it should go to the store view
           rel="noopener noreferrer"
           passHref
         >

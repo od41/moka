@@ -25,16 +25,10 @@ const Header = () => {
             />
           </button>
           <div className="flex gap-4 items-center">
-            <Link
-              className={`link ${pathname === '/store' ? 'active font-semibold' : ''}`}
-              href="/store"
-            >
-              Store
-            </Link>
             {isConnected && <>
               <Link
                 className={`link ${pathname === '/lib' ? 'active font-semibold' : ''}`}
-                href="/lib"
+                href="/library"
               >
                 My Books
               </Link>
