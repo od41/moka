@@ -46,7 +46,7 @@ export default function BookDetails({ params }: { params: { slug: string } }) {
     return <></>;
   }
   
-  if (!bookData) {
+  if (!bookData && isConnected) {
     alert("you don't own this book")
     push(`/`) // send back to home / store
     return <></>

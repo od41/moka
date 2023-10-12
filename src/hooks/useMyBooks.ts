@@ -1,49 +1,33 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useGraphQlQuery } from "@/data/useGraphQlQuery";
 
-export const MY_BOOKS_FETCH_FEED = `
-  query minsta_fetch_feed_minted_tokens(
-    $accountId: String!
-    $contractAddress: String
-    $offset: Int
+export const FETCH_MY_BOOKS = `
+query fetch_my_books($accountId: String!, $contractAddress: String) {
+  token: mb_views_nft_tokens(
+    where: {owner: {_eq: $accountId}, nft_contract_id: {_eq: $contractAddress}}
+    order_by: {last_transfer_timestamp: desc}
   ) {
-    token: mb_views_nft_tokens(
-      where: {
-        minter: { _eq: $accountId }
-        nft_contract_id: { _eq: $contractAddress }
-        burned_timestamp: { _is_null: true }
-        metadata_content_flag: { _is_null: true }
-        nft_contract_content_flag: { _is_null: true }
-      }
-      order_by: { minted_timestamp: desc },
-       offset: $offset,
-    ) {
-      id: token_id
-      createdAt: minted_timestamp
-      media
-      title
-      description
-      metadata_id
-      attributes {
-        attribute_display_type
-        attribute_value
-      } 
-    }
-    mb_views_nft_tokens_aggregate(where: {minter: {_eq: $accountId}, nft_contract_id: {_eq: $contractAddress}, burned_timestamp: {_is_null: true}}) {
-      aggregate {
-      count
-      }
+    id: token_id
+    createdAt: minted_timestamp
+    media
+    title
+    description
+    metadata_id
+    attributes {
+      attribute_type
+      attribute_value
     }
   }
+}
 `;
 
 const useMyBooks = (props: any) => {
   const { accountId, contractAddress } = props;
 
   const queryObj = {
-    queryName: "q_FETCH_FEED",
-    query: MY_BOOKS_FETCH_FEED,
-    variables: { accountId, contractAddress, offset: 49 },
+    queryName: "fetch_my_books",
+    query: FETCH_MY_BOOKS,
+    variables: { accountId, contractAddress },
     queryOpts: { staleTime: Infinity },
   };
 
@@ -51,7 +35,7 @@ const useMyBooks = (props: any) => {
     data,
     isLoading,
     isFetching,
-    refetch: refetchNfts,
+    refetch: refetchBooks,
   } = useGraphQlQuery(queryObj);
 
   const memoizedData = useMemo(() => {
@@ -70,11 +54,13 @@ const useMyBooks = (props: any) => {
     return filteredData;
   }, [data]);
 
+  
+
   return {
     data: memoizedData,
     isLoading,
     isFetching,
-    refetchNfts,
+    refetchBooks,
   };
 };
 

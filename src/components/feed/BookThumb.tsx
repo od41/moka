@@ -77,7 +77,7 @@ const BookThumb = ({ token, index, isOwned=false }: BookThumbProps) => {
             placeholder="empty"
           />
 
-          {true && <span
+          {!isOwned && <span
             className="absolute top-3 right-3 bg-black text-white rounded p-1 text-md px-2 py-1.5"
           >
             ${bookPriceInUsd} in NEAR

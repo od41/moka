@@ -1,5 +1,6 @@
 import { useGraphQlQuery } from "@/data/useGraphQlQuery";
 import { constants } from "@/constants";
+import { useEffect } from "react";
 
 /* 
 query MyQuery {
@@ -30,9 +31,10 @@ const FetchBookQueryWithAccount = `
         description
         metadata_id
         attributes {
-            attribute_display_type
-            attribute_value
-        } 
+          attribute_display_type
+          attribute_value
+        }
+        reference_blob
     }
   }
 `;
@@ -49,9 +51,10 @@ const FetchBookQueryNoAccount = `
         description
         metadata_id
         attributes {
-            attribute_display_type
-            attribute_value
+          attribute_display_type
+          attribute_value
         } 
+        reference_blob
     }
   }
 `;
@@ -61,32 +64,27 @@ export const useGetBook = (props: any) => {
   const fullMetadataId = constants.tokenContractAddress + ":" + metadataId
 
   const queryObjWithAccount = {
-    queryName: "q_FetchBook",
+    queryName: "FetchBook",
     query: FetchBookQueryWithAccount,
     variables: { accountId: accountId, contractAddress: constants.tokenContractAddress, metadataId: fullMetadataId },
     queryOpts: { staleTime: Infinity },
   };
 
   const queryObjNoAccount = {
-    queryName: "q_FetchBookNoAccount",
+    queryName: "FetchBookNoAccount",
     query: FetchBookQueryNoAccount,
     variables: {contractAddress: constants.tokenContractAddress, metadataId: fullMetadataId },
     queryOpts: { staleTime: Infinity },
   };
-
+  
   const {
+    error,
     data,
     isLoading,
     isFetching,
-    refetch: refetchNfts,
+    refetch: refetchBook,
   } = useGraphQlQuery(accountId == "" ? queryObjNoAccount : queryObjWithAccount);
 
-  let bookData: any = []
-
-  // if(data && !isLoading) {
-  //     bookData = data.book[0]
-  // }
-
-  return { data, isLoading }
+  return { data, isLoading, refetchBook }
 }
 
