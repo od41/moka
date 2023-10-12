@@ -1,6 +1,7 @@
 require("dotenv").config();
 
-const appName: string = process.env.NEXT_PUBLIC_APP_TITLE || "MINTBASE";
+const appName: string = process.env.NEXT_PUBLIC_APP_TITLE || "Moka";
+const metaDescription = process.env.NEXT_PUBLIC_META_DESCRIPTION || "Loose your self in the digital page"
 const network = process.env.NEXT_PUBLIC_NETWORK || "testnet";
 const proxyContractAddress =
   process.env.NEXT_PUBLIC_PROXY_MINTER_CONTRACT_ADDRESS ||
@@ -14,6 +15,7 @@ const mintbaseBaseUrl =
 const mintbaseWalletUrl =
   process.env.NEXT_PUBLIC_MINTBASE_WALLET_URL ||
   "https://testnet.wallet.mintbase.xyz";
+
 
 const twitterText =
   process.env.NEXT_PUBLIC_TWITTER ||

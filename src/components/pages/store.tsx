@@ -10,7 +10,7 @@ import { FeedScroll } from "../feed/feedscroll";
 import { MemoizedBookThumb } from "../feed/BookThumb";
 import { useBlockedNfts } from "@/hooks/useBlockedNfts";
 
-import {removeItemsBeforeColon} from "@/utils/removeItemsBeforeColon"
+import { serif } from "@/app/layout";
 
 export const StorePage = () => {
   const { newToken, tokensFetched, isLoading } = useFirstToken();
@@ -44,25 +44,10 @@ export const StorePage = () => {
 
   return (
     <>
-      <main className="px-4 lg:px-12 mx-auto flex flex-col items-center justify-center space-y-4 ">
-        <h1 className="text-xl mt-[5rem]">Book Store</h1>
-        <DynamicGrid mdCols={2} nColsXl={4} nColsXXl={6}>
-          {/* {!newToken?.media || isLoading ? (
-            <div
-              className="md:aspect-square rounded overflow-x-hidden cursor-pointer sm:w-full md:w-72 h-72 xl:w-80 xl:h-80 relative"
-              key={1}
-            >
-              <div className="rounded animate-pulse w-full h-full bg-gray-600 dark:bg-gray-800" />
-            </div>
-          ) : !firstTokenisBlocked ||
-            typeof firstTokenisBlocked == "undefined" ? (
-            <MemoizedBookThumb
-              key={newToken?.media}
-              token={newToken}
-              index={1}
-            />
-          ) : null} */}
-
+      <main className="px-4 lg:px-12 flex flex-col items-start justify-center mb-[300px] md:mb-[120px]">
+        <h1 style={serif.style} className="text-[34px] mt-[5rem]">Moka Store</h1>
+        <hr className="w-full mt-2 mb-6" />
+        <DynamicGrid nCols={2} mdCols={2} nColsXl={4} nColsXXl={6} nGap={4} nGapMobile={8}>
           {data?.length > 0 &&
             data.map((token: any, index: number) => {
               if (!!blockedNfts && blockedNfts.includes(token?.metadata_id)) {

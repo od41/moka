@@ -6,6 +6,7 @@ import { constants } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { removeItemsBeforeColon } from "@/utils/removeItemsBeforeColon";
+import { serif } from "@/app/layout";
 
 import { parseYoctoToNear } from "@/lib/numbers";
 import { useNearPrice } from "@mintbase-js/react";
@@ -54,7 +55,7 @@ const BookThumb = ({ token, index, isOwned=false }: BookThumbProps) => {
 
   if (imageUrl) {
     return (
-      <div className=" aspect-square  sm:w-full md:w-72 h-72 xl:w-80 xl:h-80 relative">
+      <div className="w-full h-auto relative">
         <Link
           key={`${token?.metadata_id}-${index}`}
           href={
@@ -64,28 +65,33 @@ const BookThumb = ({ token, index, isOwned=false }: BookThumbProps) => {
           rel="noopener noreferrer"
           passHref
         >
-          <Image
-            key={token?.metadata_id}
-            src={imageUrl}
-            alt={`Token ${index}`}
-            className="object-cover h-full w-full"
-            width={320}
-            height={320}
-            quality={70}
-            priority={index < 5}
-            onError={handleError}
-            placeholder="empty"
-          />
+          <div className="aspect-[1/1.45] h-auto relative">
+            <Image
+              key={token?.metadata_id}
+              src={imageUrl}
+              alt={`Token ${index}`}
+              className="object-cover rounded"
+              fill={true}
+              quality={70}
+              priority={index < 5}
+              onError={handleError}
+              placeholder="empty"
+            />
+          </div>
+          
 
-          {!isOwned && <span
-            className="absolute top-3 right-3 bg-black text-white rounded p-1 text-md px-2 py-1.5"
-          >
-            ${bookPriceInUsd} in NEAR
-          </span>}
-          <div>
-            <h3 className="">{title}</h3>
-            <p className="truncate">{description}</p>
-            <small>{printAbleDate}</small>
+          
+          <div className="w-full flex flex-col gap-1 mt-4">
+            <h3 style={serif.style} className="text-[15px] md:text-xl lg:text-2xl leading-tight text-gray-800">{title}</h3>
+            <div className="text-[13px] md:text-lg lg:text-xl leading-snug text-gray-400">{author}</div>
+            <div className="flex justify-between items-center w-full">
+              <span className="text-[13px] md:text-lg lg:text-xl text-gray-400">{printAbleDate}</span>
+              {!isOwned && <span
+                  className="text-gray-600 rounded text-[13px] md:text-lg lg:text-xl"
+                >
+                  ${bookPriceInUsd} in N
+                </span>}
+            </div>
           </div>
         </Link>
       </div>
