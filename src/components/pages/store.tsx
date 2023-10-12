@@ -6,11 +6,8 @@ import React, { useEffect } from "react";
 import { useFirstToken } from "@/hooks/useFirstToken";
 import { useFeed } from "@/hooks/useFeed";
 import { constants } from "@/constants";
-import { FeedScroll } from "../feed/feedscroll";
-import { MemoizedBookThumb } from "../feed/BookThumb";
 import { useBlockedNfts } from "@/hooks/useBlockedNfts";
-
-import { serif } from "@/app/layout";
+import { PageTemplate } from "./page-template";
 
 export const StorePage = () => {
   const { newToken, tokensFetched, isLoading } = useFirstToken();
@@ -44,28 +41,12 @@ export const StorePage = () => {
 
   return (
     <>
-      <main className="px-4 lg:px-12 flex flex-col items-start justify-center mb-[300px] md:mb-[120px]">
-        <h1 style={serif.style} className="text-[34px] mt-[5rem]">Moka Store</h1>
-        <hr className="w-full mt-2 mb-6" />
-        <DynamicGrid nCols={2} mdCols={2} nColsXl={4} nColsXXl={6} nGap={4} nGapMobile={8}>
-          {data?.length > 0 &&
-            data.map((token: any, index: number) => {
-              if (!!blockedNfts && blockedNfts.includes(token?.metadata_id)) {
-                return null;
-              }
-
-              return (
-                <MemoizedBookThumb
-                  key={token?.metadata_id}
-                  token={token}
-                  index={index}
-                />
-              );
-            })}
-
-          {/* <FeedScroll blockedNfts={blockedNfts} /> */}
-        </DynamicGrid>
-      </main>
+      <PageTemplate 
+        title="Moka Store"
+        data={data}
+        blockedNfts={blockedNfts}
+        isLoading={isLoading}
+      />
     </>
   );
 };
