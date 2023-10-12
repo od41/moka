@@ -1,6 +1,6 @@
 import { useGraphQlQuery } from "@/data/useGraphQlQuery";
 import { constants } from "@/constants";
-import { useEffect } from "react";
+import { useMemo } from "react";
 
 /* 
 query MyQuery {
@@ -84,6 +84,10 @@ export const useGetBook = (props: any) => {
     isFetching,
     refetch: refetchBook,
   } = useGraphQlQuery(accountId == "" ? queryObjNoAccount : queryObjWithAccount);
+
+  const memoizedData = useMemo((): any[] => {  
+    return data;
+  }, [data, metadataId]);
 
   return { data, isLoading, refetchBook }
 }

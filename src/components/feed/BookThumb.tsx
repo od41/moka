@@ -10,6 +10,7 @@ import { serif } from "@/app/layout";
 
 import { parseYoctoToNear } from "@/lib/numbers";
 import { useNearPrice } from "@mintbase-js/react";
+import { NearSymbol } from "@/components/near-symbol";
 
 interface BookThumbProps {
   token: any;
@@ -87,9 +88,9 @@ const BookThumb = ({ token, index, isOwned=false }: BookThumbProps) => {
             <div className="flex justify-between items-center w-full">
               <span className="text-[13px] md:text-lg lg:text-xl text-gray-400">{printAbleDate}</span>
               {!isOwned && <span
-                  className="text-gray-600 rounded text-[13px] md:text-lg lg:text-xl"
+                  className="flex items-center text-gray-600 rounded text-[13px] md:text-lg lg:text-xl"
                 >
-                  ${bookPriceInUsd} in N
+                  ${bookPriceInUsd} in <NearSymbol />
                 </span>}
             </div>
           </div>

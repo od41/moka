@@ -1,15 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 export default function Jud() {
-  return (<>
-  <h2>Judy show</h2>
-  <h2>Judy show</h2>
-  <h2>Judy show</h2>
-  <h2>Judy show</h2>
-  <h2>Judy show</h2>
-  <h2>Judy show</h2>
-  <h2>Judy show</h2>
-  <h2>Judy show</h2>
-  <h2>Judy show</h2>
-  </>);
+  const {push} = useRouter()
+  push('/'); // send the user to the home page
+  return null;
 }
