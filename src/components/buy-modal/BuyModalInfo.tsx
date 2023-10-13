@@ -4,7 +4,6 @@ import { buy, execute, TransactionSuccessEnum } from '@mintbase-js/sdk';
 import {
   EState,
   MbAmountInput,
-  MbButton,
   MbInfoCard,
   MbText,
 } from 'mintbase-ui';
@@ -18,6 +17,7 @@ The component that handles the NFT Buy Information
 import { useState } from 'react'; 
 import { nearToYocto } from '@/lib/numbers';
 import { TokenListData } from '@/types/types';
+import { serif } from '@/app/layout';
 
 function AvailableNftComponent({
   data,
@@ -57,8 +57,6 @@ function AvailableNftComponent({
   const singleBuy = async () => {
     const wallet = await selector.wallet();
 
-    console.log("wallet", wallet)
-
     await execute(
       { wallet, callbackArgs: callback },
       {
@@ -96,11 +94,11 @@ function AvailableNftComponent({
 
   return isConnected && !isTokenListLoading ? (
     <div className="mt-2">
-      <div className="bg-gray-50 py-4 text-center">
+      {/* <div className="bg-gray-50 py-4 text-center">
         <MbText className="p-med-90 text-gray-700">
           <span className="p-med-130 text-black">{message}</span>
         </MbText>
-      </div>
+      </div> */}
       <div className="py-2">
         <div className="mb-8">
           <MbInfoCard
@@ -126,11 +124,7 @@ function AvailableNftComponent({
           </div>
         </div>
         <div className="text-center">
-          <MbButton
-            label="Buy with NEAR"
-            state={EState.ACTIVE}
-            onClick={handleBuy}
-          />
+          <button onClick={handleBuy} className="w-full mt-4 bg-[#3F305B] hover:bg-[#614F82] uppercase font-semibold text-sm text-white py-3 rounded-full">Buy with NEAR</button>
         </div>
       </div>
     </div>
@@ -153,9 +147,9 @@ export function BuyModalInfo({
     return (
       <div className="mt-2">
         <div className="bg-gray-50 py-4 text-center">
-          <MbText className="p-med-90 text-gray-700">
-            <span className="p-med-130 text-black">NFT Not Available</span>
-          </MbText>
+          {/* <MbText className="p-med-90 text-gray-700"> */}
+            <span style={serif.style} className="text-gray-900 text-xl">Book is Unavailable</span>
+          {/* </MbText> */}
         </div>
       </div>
     );

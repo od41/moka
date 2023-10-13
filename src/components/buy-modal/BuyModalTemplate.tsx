@@ -1,3 +1,4 @@
+import { serif } from '@/app/layout';
 import React from 'react';
 
 export function BuyModalTemplate({
@@ -30,10 +31,11 @@ export function BuyModalTemplate({
             <div className="mt-3 ml-2 text-center sm:mt-0 sm:ml-4 sm:text-left">
               <div className="flex flex-row items-center justify-between w-full border-b-2">
                 <h3
-                  className="text-md leading-6 font-medium text-gray-900"
+                  style={serif.style}
+                  className="text-2xl leading-loose text-gray-900"
                   id="modal-title"
                 >
-                  Buy this book
+                  Buy Book
                 </h3>
                 <button
                   type="button"

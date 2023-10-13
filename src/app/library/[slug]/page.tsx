@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useWallet } from "@mintbase-js/react";
 import { useRouter } from "next/navigation";
 import { useApp } from "@/providers/app";
+import BookDetailsTemplate from '@/components/pages/book-details'
+import { Spinner } from "@/components/Spinner";
 
 export default function BookDetails({ params }: { params: { slug: string } }) {
   const [error, setError] = useState(false);
@@ -36,9 +38,10 @@ export default function BookDetails({ params }: { params: { slug: string } }) {
     }
   }, [data, isLoading])
 
+  // display a loading UI
   if (isPageLoading) {
-    return <>Loading</> // @TODO: replace with nicer looking loading screen OR use the Next13 loading API?
-  } 
+    return <Spinner />
+  }
 
   // require user to login logged in
   if (!isConnected) {
@@ -52,25 +55,8 @@ export default function BookDetails({ params }: { params: { slug: string } }) {
     return <></>
   }
 
-  return (<main className="px-4 lg:px-12 mx-auto flex flex-col items-center justify-center space-y-4">
-    <h2 className="mt-[72px]">{bookData.title} </h2>
-    <div>
-      <div>
-        <Image
-          key={params.slug}
-          src={bookData.media}
-          alt={`Book ${bookData.title}`}
-          className="object-cover h-full w-full"
-          width={320}
-          height={320}
-          quality={70}
-          priority={true}
-          onError={handleError}
-          placeholder="empty"
-        />
-      </div>
-      <p>{bookData.description}</p>
-      <button onClick={() => push(`/library/${params.slug}/read`)}>read</button>
-    </div>
-  </main>);
+  return (
+  <>
+    <BookDetailsTemplate bookData={data?.data?.book[0]} isLoading={isLoading} params={params} isOwned={true} />
+  </>);
 }

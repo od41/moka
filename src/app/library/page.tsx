@@ -5,6 +5,7 @@ import { useMyBooks } from "@/hooks/useMyBooks";
 import { constants } from "@/constants";
 import { useWallet } from "@mintbase-js/react";
 import { PageTemplate } from "@/components/pages/page-template";
+import { Spinner } from "@/components/Spinner";
 
 export default function Library() {
   const { activeAccountId } = useWallet()
@@ -22,7 +23,7 @@ export default function Library() {
 
 
   if (isDataLoading) {
-    return <>Loading...</>
+    return <Spinner />
   }
 
   return (<>

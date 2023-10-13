@@ -8,6 +8,7 @@ import { useFeed } from "@/hooks/useFeed";
 import { constants } from "@/constants";
 import { useBlockedNfts } from "@/hooks/useBlockedNfts";
 import { PageTemplate } from "./page-template";
+import { Spinner } from "@/components/Spinner";
 
 export const StorePage = () => {
   const { newToken, tokensFetched, isLoading } = useFirstToken();
@@ -38,6 +39,10 @@ export const StorePage = () => {
       clearTimeout(reloadTimeout);
     };
   }, [newToken]);
+
+  if (isDataLoading) {
+    return <Spinner />
+  }
 
   return (
     <>

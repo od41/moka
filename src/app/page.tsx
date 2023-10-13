@@ -3,6 +3,10 @@ import { MINSTA_META } from "@/data/fallback";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
+  title: process.env.NEXT_PUBLIC_META_TITLE ?? MINSTA_META.title,
+  description:
+    process.env.NEXT_PUBLIC_META_DESCRIPTION ?? MINSTA_META.description,
+    
   openGraph: {
     title: process.env.NEXT_PUBLIC_META_TITLE ?? MINSTA_META.title,
     description:
@@ -26,9 +30,7 @@ export const metadata: Metadata = {
     creator: "Mintbase",
     images: process.env.NEXT_PUBLIC_META_IMAGE ?? MINSTA_META.image,
   },
-  title: process.env.NEXT_PUBLIC_META_TITLE ?? MINSTA_META.title,
-  description:
-    process.env.NEXT_PUBLIC_META_DESCRIPTION ?? MINSTA_META.description,
+  
 };
 
 export default function Home() {
